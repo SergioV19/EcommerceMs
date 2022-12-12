@@ -1,0 +1,56 @@
+<div class="contenedor-padre">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <mat-toolbar class="barra" color="">
+    <mat-toolbar-row>
+      <button (click)="cajon.toggle()" mat-icon-button>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>
+        AdviserInputs
+      </span>
+      <span class="example-fill-remaining-space"></span>
+      <button mat-raised-button [matMenuTriggerFor]="menu">
+        <span style="margin-right: 10px" [matBadge]="productos.length+''" matBadgeOverlap="false"
+          matBadgePosition="below after">Carrito de compras</span>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let p of productos;">{{p.nombre}} {{p.precio | currency}}</button>
+        <button mat-menu-item>
+          <strong>Total: {{total() | currency}}</strong>
+        </button>
+        <a *ngIf="productos.length > 0" mat-menu-item routerLink="/terminar_compra">
+          <mat-icon>shopping_cart</mat-icon>
+          Terminar compra
+        </a>
+      </mat-menu>
+      <a style="margin-left: 10px" mat-raised-button color="primary" href="/#/login" target="_blank">
+        Cerrar sesion
+      </a>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-sidenav-container class="contenido">
+    <mat-sidenav style="min-width: 300px;" #cajon closed mode="side">
+      <mat-nav-list>
+        <p *ngIf="verifyAdmin()" style="margin-left: 4px;">Administrador</p>
+        <a *ngIf="verifyAdmin()" mat-list-item routerLink="/productos">
+          <mat-icon color="primary">list_alt</mat-icon>
+          Productos
+        </a>
+        <a *ngIf="verifyAdmin()" mat-list-item routerLink="/ventas">
+          <mat-icon color="primary">local_shipping</mat-icon>
+          Ventas
+        </a>
+        <mat-divider></mat-divider>
+        <p *ngIf="verifyCostumer()" style="margin-left: 4px;">Cliente</p>
+        <a *ngIf="verifyCostumer()" mat-list-item routerLink="/tienda">
+          <mat-icon color="primary">store</mat-icon>
+          Ver tienda
+        </a>
+        <mat-divider></mat-divider>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="padding-10">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

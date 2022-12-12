@@ -1,0 +1,40 @@
+<mat-card>
+    <h3>
+      <mat-icon>person</mat-icon>
+      Vendedor: pendiente</h3>
+    <h3>
+        <mat-icon>person</mat-icon>
+        Comprador: {{venta.nombre}}</h3>  
+    <h3>
+      <mat-icon>local_shipping</mat-icon>
+      Direccion de envio: {{venta.direccion}}</h3>
+    <h3>
+        <mat-icon>calendar_today</mat-icon>
+        Fecha compra: {{fecha.dia}}/{{fecha.mes+1}}/{{fecha.ano}}</h3>
+
+    <table *ngIf="venta.productos.length>0" mat-table [dataSource]="venta.productos">
+      <ng-container matColumnDef="cantidad">
+        <mat-header-cell *matHeaderCellDef>Cantidad</mat-header-cell>
+        <mat-cell *matCellDef="let element"> pendiente</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="nombre">
+        <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.nombre}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="precio Unitario">
+        <mat-header-cell *matHeaderCellDef>Precio Unitario</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.precio | currency}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="precio Total">    
+        <mat-header-cell *matHeaderCellDef>Precio Total</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.precio | currency}}*cantidad</mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
+    </table>
+    <br>
+    <h2 align="right">Total: {{venta.total}}</h2>
+    <br>
+    <a routerLink="/ventas" mat-raised-button color="accent">Volver</a>
+  </mat-card>
+  
